@@ -29,4 +29,4 @@ umount /raspios/mnt/disk
 umount /raspios/mnt/boot
 
 mkdir build
-zip build/${RASPIOS}.zip ${RASPIOS}.img
+#zip build/${RASPIOS}.zip ${RASPIOS}.img

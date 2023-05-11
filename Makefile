@@ -5,10 +5,10 @@ RASPIOS_IMAGE_NAME=raspios_lite_arm64
 all: clean
 	$(MAKE) build raspios_image_name=$(RASPIOS_IMAGE_NAME)
 
-Pi1 Pi2 PiZero PiCM1: clean
+arm Pi1 Pi2 PiZero PiCM1: clean
 	$(MAKE) build platform32=1 raspios_image_name=raspios_lite_armhf
 
-Pi3 Pi4 Pi400 PiZero2 PiCM3 PiCM4: clean
+arm64 Pi3 Pi4 Pi400 PiZero2 PiCM3 PiCM4: clean
 	$(MAKE) build raspios_image_name=$(RASPIOS_IMAGE_NAME)
 
 build:

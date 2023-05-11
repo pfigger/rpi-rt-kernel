@@ -9,9 +9,26 @@ ENV TZ=Europe/Copenhagen
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update
-RUN apt-get install -y git make gcc bison flex libssl-dev bc ncurses-dev kmod
-RUN apt-get install -y crossbuild-essential-arm64 crossbuild-essential-armhf
-RUN apt-get install -y wget zip unzip fdisk nano curl xz-utils
+RUN apt-get install -y git \
+make \
+gcc \
+bison \
+flex \
+libssl-dev \
+bc \
+ncurses-dev \
+kmod \
+#
+crossbuild-essential-arm64 \
+crossbuild-essential-armhf \
+#
+wget \
+zip \
+unzip \
+fdisk \
+nano \
+curl \
+xz-utils
 
 WORKDIR /rpi-kernel
 RUN git clone https://github.com/raspberrypi/linux.git -b ${LINUX_KERNEL_BRANCH} --depth=1
