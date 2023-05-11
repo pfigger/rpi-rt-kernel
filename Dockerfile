@@ -8,8 +8,8 @@ ENV LINUX_KERNEL_BRANCH=rpi-${LINUX_KERNEL_VERSION}.y
 ENV TZ=Europe/Copenhagen
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get update
-RUN apt-get install -y git \
+RUN apt update
+RUN apt install -y git \
 bc \
 bison \
 crossbuild-essential-arm64 \
