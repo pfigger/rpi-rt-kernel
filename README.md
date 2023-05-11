@@ -63,7 +63,7 @@ Please note that cyclictest does not put any load on the cpu, the results are us
 
 Run `make custom`. You will get a shell to a container. Then run:
 ```
-cd /rpi-rt-kernel/linux
+cd /rpi-kernel/linux
 make menuconfig
 ```
 
