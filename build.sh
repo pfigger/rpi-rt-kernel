@@ -2,8 +2,11 @@
 
 RASPIOS=$(ls *.img -1 | sed -e 's/\.img$//')
 
-mount -t ext4 -o loop,offset=$((532480*512)) ${RASPIOS}.img /raspios/mnt/disk
-mount -t vfat -o loop,offset=$((8192*512)),sizelimit=$((524288*512)) ${RASPIOS}.img /raspios/mnt/boot
+#mount -t ext4 -o loop,offset=$((532480*512)) ${RASPIOS}.img /raspios/mnt/disk
+#mount -t vfat -o loop,offset=$((8192*512)),sizelimit=$((524288*512)) ${RASPIOS}.img /raspios/mnt/boot
+kpartx -a -v ${RASPBIOS}.img
+mount /dev/mapper/loop0p1 /raspios/mnt/boot
+mount /dev/mapper/loop0p2 /raspios/mnt/disk
 
 cd /rpi-kernel/linux/
 make INSTALL_MOD_PATH=/raspios/mnt/disk modules_install

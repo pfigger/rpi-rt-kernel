@@ -10,25 +10,26 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update
 RUN apt-get install -y git \
-make \
-gcc \
-bison \
-flex \
-libssl-dev \
 bc \
-ncurses-dev \
-kmod \
-#
+bison \
 crossbuild-essential-arm64 \
 crossbuild-essential-armhf \
-#
-wget \
-zip \
-unzip \
-fdisk \
-nano \
 curl \
-xz-utils
+fdisk \
+flex \
+gcc \
+kmod \
+#
+kpartx
+#
+libssl-dev \
+make \
+nano \
+ncurses-dev \
+unzip \
+wget \
+xz-utils \
+zip \
 
 WORKDIR /rpi-kernel
 RUN git clone https://github.com/raspberrypi/linux.git -b ${LINUX_KERNEL_BRANCH} --depth=1
@@ -56,13 +57,13 @@ ENV CROSS_COMPILE=${CROSS_COMPILE:-aarch64-linux-gnu-}
 RUN echo ${KERNEL} ${ARCH} ${CROSS_COMPILE}
 
 RUN [ "$ARCH" = "arm" ] && make bcmrpi_defconfig || make bcm2711_defconfig
-RUN ./scripts/config --disable CONFIG_VIRTUALIZATION
-RUN ./scripts/config --enable CONFIG_PREEMPT_RT
-RUN ./scripts/config --disable CONFIG_RCU_EXPERT
-RUN ./scripts/config --enable CONFIG_RCU_BOOST
-RUN [ "$ARCH" = "arm" ] && ./scripts/config --enable CONFIG_SMP || true
-RUN [ "$ARCH" = "arm" ] && ./scripts/config --disable CONFIG_BROKEN_ON_SMP || true
-RUN ./scripts/config --set-val CONFIG_RCU_BOOST_DELAY 500
+RUN ./scripts/config --disable CONFIG_VIRTUALIZATION \
+&& ./scripts/config --enable CONFIG_PREEMPT_RT \
+&& ./scripts/config --disable CONFIG_RCU_EXPERT \
+&& ./scripts/config --enable CONFIG_RCU_BOOST \
+&& [ "$ARCH" = "arm" ] && ./scripts/config --enable CONFIG_SMP || true \
+&& [ "$ARCH" = "arm" ] && ./scripts/config --disable CONFIG_BROKEN_ON_SMP || true \
+&& ./scripts/config --set-val CONFIG_RCU_BOOST_DELAY 500
 
 RUN make -j4 Image modules dtbs
 
