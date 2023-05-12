@@ -20,7 +20,7 @@ flex \
 gcc \
 kmod \
 #
-kpartx
+kpartx \
 #
 libssl-dev \
 make \
@@ -29,7 +29,7 @@ ncurses-dev \
 unzip \
 wget \
 xz-utils \
-zip \
+zip
 
 WORKDIR /rpi-kernel
 RUN git clone https://github.com/raspberrypi/linux.git -b ${LINUX_KERNEL_BRANCH} --depth=1
